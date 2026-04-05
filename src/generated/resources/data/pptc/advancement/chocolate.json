@@ -1,0 +1,33 @@
+{
+  "parent": "pptc:broken",
+  "criteria": {
+    "get_totem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pptc:totem_of_chocolate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.pptc.chocolate.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pptc:totem_of_chocolate"
+    },
+    "title": {
+      "translate": "advancements.pptc.chocolate.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_totem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

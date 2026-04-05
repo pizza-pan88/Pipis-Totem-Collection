@@ -1,0 +1,41 @@
+{
+  "parent": "pptc:pipi_totem",
+  "criteria": {
+    "cursed_pipi": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "pptc:totem_cursed": true
+            },
+            "items": "pptc:pipis_totem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.pptc.cursed_pipi.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "components": {
+        "pptc:totem_cursed": true
+      },
+      "count": 1,
+      "id": "pptc:pipis_totem"
+    },
+    "title": {
+      "translate": "advancements.pptc.cursed_pipi.title"
+    }
+  },
+  "requirements": [
+    [
+      "cursed_pipi"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

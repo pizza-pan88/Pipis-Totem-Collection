@@ -1,0 +1,13 @@
+{
+  "type": "pptc:item_loot_modifier",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:entities/villager"
+    }
+  ],
+  "item": {
+    "count": 1,
+    "id": "pptc:villager_core"
+  }
+}

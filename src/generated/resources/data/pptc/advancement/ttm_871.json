@@ -1,0 +1,33 @@
+{
+  "parent": "pptc:broken",
+  "criteria": {
+    "get_totem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pptc:totem_871"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.pptc.ttm_871.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "pptc:totem_871"
+    },
+    "title": {
+      "translate": "advancements.pptc.ttm_871.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_totem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

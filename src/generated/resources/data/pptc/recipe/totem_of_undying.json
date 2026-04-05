@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pptc:broken_totem",
+    "pptc:villager_core"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:totem_of_undying"
+  }
+}

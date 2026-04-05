@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "pptc:broken_totem",
+    "C": "pptc:totem_of_chocolate",
+    "R": "pptc:totem_of_return",
+    "S": "pptc:totem_871",
+    "V": "pptc:villager_core"
+  },
+  "pattern": [
+    " V ",
+    "SBC",
+    " R "
+  ],
+  "result": {
+    "components": {
+      "pptc:totem_health": 20.0
+    },
+    "count": 1,
+    "id": "pptc:pipis_totem"
+  }
+}
