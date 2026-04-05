@@ -1,0 +1,30 @@
+{
+  "itemGroup.pipimod": "Pipi's Totem Collection",
+  
+  "item.pptc.villager_core": "Villager Core",
+  "item.pptc.pipis_totem": "Pipi's Totem",
+  "item.pptc.broken_totem": "Broken Totem",
+  "item.pptc.totem_of_return": "Totem of Return",
+  "item.pptc.totem_871": "Totem 871",
+  "item.pptc.totem_of_chocolate": "Totem of Chocolate",
+  
+  "tooltip.pipis_totem.health": "Health: %s",
+  "tooltip.pipis_totem.cursed": "The amount of healing is reduced to 1, and the invincibility period is eliminated.",
+
+  "advancements.pptc.origin.title": "Totem of Undying",
+  "advancements.pptc.origin.description": "Collect the Totem of Undying.",
+  "advancements.pptc.broken.title": "Broke the Totem",
+  "advancements.pptc.broken.description": "Oh my gosh!!",
+  "advancements.pptc.tor.title": "Totem of Return",
+  "advancements.pptc.tor.description": "Collect the Totem of Return.",
+  "advancements.pptc.ttm_871.title": "Totem 871",
+  "advancements.pptc.ttm_871.description": "Collect the Totem 871.",
+  "advancements.pptc.chocolate.title": "Totem of Chocolate",
+  "advancements.pptc.chocolate.description": "Collect the Totem of Chocolate.",
+  "advancements.pptc.villager.title": "Repair",
+  "advancements.pptc.villager.description": "Get villagers to repair the totem!!",
+  "advancements.pptc.pipi.title": "Pipi's Totem",
+  "advancements.pptc.pipi.description": "Merge all Totems.",
+  "advancements.pptc.cursed_pipi.title": "Cursed One",
+  "advancements.pptc.cursed_pipi.description": "\u00A7k This curse can never get purified."
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "pptc:origin",
+  "criteria": {
+    "broken_totem": {
+      "conditions": {
+        "item": {}
+      },
+      "trigger": "minecraft:used_totem"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.pptc.broken.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pptc:broken_totem"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pptc.broken.title"
+    }
+  },
+  "requirements": [
+    [
+      "broken_totem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

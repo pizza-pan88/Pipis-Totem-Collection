@@ -1,0 +1,38 @@
+{
+  "parent": "pptc:broken",
+  "criteria": {
+    "take_in_villager": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pptc:villager_core"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.pptc.villager.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "pptc:villager_core"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pptc.villager.title"
+    }
+  },
+  "requirements": [
+    [
+      "take_in_villager"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

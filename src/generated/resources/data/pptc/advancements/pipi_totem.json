@@ -1,0 +1,38 @@
+{
+  "parent": "pptc:villager_core",
+  "criteria": {
+    "pipi": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pptc:pipis_totem"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.pptc.pipi.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "pptc:pipis_totem"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pptc.pipi.title"
+    }
+  },
+  "requirements": [
+    [
+      "pipi"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

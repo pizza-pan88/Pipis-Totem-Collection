@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "pptc:broken_totem"
+    },
+    "C": {
+      "item": "pptc:totem_of_chocolate"
+    },
+    "R": {
+      "item": "pptc:totem_of_return"
+    },
+    "S": {
+      "item": "pptc:totem_871"
+    },
+    "V": {
+      "item": "pptc:villager_core"
+    }
+  },
+  "pattern": [
+    " V ",
+    "SBC",
+    " R "
+  ],
+  "result": {
+    "item": "pptc:pipis_totem"
+  },
+  "show_notification": true
+}

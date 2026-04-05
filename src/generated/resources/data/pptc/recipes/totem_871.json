@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "pptc:broken_totem"
+    },
+    {
+      "item": "minecraft:cake"
+    }
+  ],
+  "result": {
+    "item": "pptc:totem_871"
+  }
+}

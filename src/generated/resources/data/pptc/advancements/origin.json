@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "get_totem": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:totem_of_undying"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "minecraft:textures/block/bedrock.png",
+    "description": {
+      "translate": "advancements.pptc.origin.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:totem_of_undying"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pptc.origin.title"
+    }
+  },
+  "requirements": [
+    [
+      "get_totem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
