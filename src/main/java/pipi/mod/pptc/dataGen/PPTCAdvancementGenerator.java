@@ -6,6 +6,8 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.advancements.critereon.RecipeCraftedTrigger;
 import net.minecraft.advancements.critereon.UsedTotemTrigger;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
@@ -26,64 +28,79 @@ public class PPTCAdvancementGenerator implements AdvancementGenerator {
 	public void generate(Provider registries, Consumer<Advancement> writer, ExistingFileHelper fileHelper) {
 		//root
 		Advancement.Builder.advancement()
-		.display(Items.TOTEM_OF_UNDYING,
-				Component.translatable(title("origin")),
-				Component.translatable(description("origin")),
+		.display(PPTCItems.PIPI_TOTEM.get(),
+				Component.translatable(title("root")),
+				Component.translatable(description("root")),
 				ResourceLocation.fromNamespaceAndPath("minecraft", "textures/block/bedrock.png"),
 				FrameType.TASK,
+				false, false, false
+		).addCriterion("on_tick", PlayerTrigger.TriggerInstance.tick())
+		// 下記2行どちらも同じ意味。ANDの場合は指定不要
+		//.requirements(RequirementsStrategy.AND)
+		//.requirements(new String[][] {new String[] {"on_tick"}})
+		.save(writer, PPTC.locate("root"), fileHelper);
+		
+		//totem of undying
+		Advancement.Builder.advancement()
+		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("root").toString()))
+		.display(Items.TOTEM_OF_UNDYING,
+				Component.translatable(title("collect_totem")),
+				Component.translatable(description("collect_totem")),
+				null,
+				FrameType.GOAL,
 				true, true, false
-		).addCriterion("get_totem", InventoryChangeTrigger.TriggerInstance.hasItems(Items.TOTEM_OF_UNDYING))
-		.requirements(new String[][] {new String[] {"get_totem"}})
+		).addCriterion("collect_totem", InventoryChangeTrigger.TriggerInstance.hasItems(Items.TOTEM_OF_UNDYING))
 		.save(writer, PPTC.locate("origin"), fileHelper);
-		//broke totem
+		
+		//broken totem
 		Advancement.Builder.advancement()
 		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("origin").toString()))
 		.display(PPTCItems.BROKEN_TOTEM.get(),
-				Component.translatable(title("broken")),
-				Component.translatable(description("broken")),
+				Component.translatable(title("break_totem")),
+				Component.translatable(description("break_totem")),
 				null,
 				FrameType.TASK,
 				true, true, false
 		).addCriterion("broken_totem", UsedTotemTrigger.TriggerInstance.usedTotem(
 				ItemPredicate.Builder.item().build()
-		)).requirements(new String[][] {new String[] {"broken_totem"}})
-		.save(writer, PPTC.locate("broken"), fileHelper);
+		)).save(writer, PPTC.locate("broken"), fileHelper);
+		
 		//totem of return
 		Advancement.Builder.advancement()
 		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("broken").toString()))
 		.display(PPTCItems.TOTEM_OF_RETURN.get(),
-				Component.translatable(title("tor")),
-				Component.translatable(description("tor")),
+				Component.translatable(title("collect_tor")),
+				Component.translatable(description("collect_tor")),
 				null,
 				FrameType.TASK,
 				true, true, false
 		).addCriterion("get_totem", InventoryChangeTrigger.TriggerInstance.hasItems(PPTCItems.TOTEM_OF_RETURN.get()))
-		.requirements(new String[][] {new String[] {"get_totem"}})
 		.save(writer, PPTC.locate("tor"), fileHelper);
+		
 		//totem 871
 		Advancement.Builder.advancement()
 		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("broken").toString()))
 		.display(PPTCItems.TOTEM_871.get(),
-				Component.translatable(title("ttm_871")),
-				Component.translatable(description("ttm_871")),
+				Component.translatable(title("collect_ttm_871")),
+				Component.translatable(description("collect_ttm_871")),
 				null,
 				FrameType.TASK,
 				true, true, false
 		).addCriterion("get_totem", InventoryChangeTrigger.TriggerInstance.hasItems(PPTCItems.TOTEM_871.get()))
-		.requirements(new String[][] {new String[] {"get_totem"}})
 		.save(writer, PPTC.locate("ttm_871"), fileHelper);
+		
 		//totem of chocolate
 		Advancement.Builder.advancement()
 		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("broken").toString()))
 		.display(PPTCItems.TOTEM_OF_CHOCOLATE.get(),
-				Component.translatable(title("chocolate")),
-				Component.translatable(description("chocolate")),
+				Component.translatable(title("collect_chocotem")),
+				Component.translatable(description("collect_chocotem")),
 				null,
 				FrameType.TASK,
 				true, true, false
 		).addCriterion("get_totem", InventoryChangeTrigger.TriggerInstance.hasItems(PPTCItems.TOTEM_OF_CHOCOLATE.get()))
-		.requirements(new String[][] {new String[] {"get_totem"}})
 		.save(writer, PPTC.locate("chocolate"), fileHelper);
+		
 		//villager core
 		Advancement.Builder.advancement()
 		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("broken").toString()))
@@ -94,8 +111,20 @@ public class PPTCAdvancementGenerator implements AdvancementGenerator {
 				FrameType.GOAL,
 				true, true, false
 		).addCriterion("take_in_villager", InventoryChangeTrigger.TriggerInstance.hasItems(PPTCItems.VILLAGER_CORE.get()))
-		.requirements(new String[][] {new String[] {"take_in_villager"}})
 		.save(writer, PPTC.locate("villager_core"), fileHelper);
+		
+		//repair totem
+		Advancement.Builder.advancement()
+		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("villager_core").toString()))
+		.display(PPTCItems.VILLAGER_CORE.get(),
+				Component.translatable(title("repair_totem")),
+				Component.translatable(description("repair_totem")),
+				null,
+				FrameType.CHALLENGE,
+				true, true, false
+		).addCriterion("repair_totem", RecipeCraftedTrigger.TriggerInstance.craftedItem(PPTC.locate("totem_of_undying")))
+		.save(writer, PPTC.locate("repair_totem"), fileHelper);
+		
 		//pipi's totem
 		Advancement.Builder.advancement()
 		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("villager_core").toString()))
@@ -103,11 +132,11 @@ public class PPTCAdvancementGenerator implements AdvancementGenerator {
 				Component.translatable(title("pipi")),
 				Component.translatable(description("pipi")),
 				null,
-				FrameType.GOAL,
+				FrameType.TASK,
 				true, true, false
 		).addCriterion("pipi", InventoryChangeTrigger.TriggerInstance.hasItems(PPTCItems.PIPI_TOTEM.get()))
-		.requirements(new String[][] {new String[] {"pipi"}})
 		.save(writer, PPTC.locate("pipi_totem"), fileHelper);
+		
 		//cursed pipi's totem
 		Advancement.Builder.advancement()
 		.parent(AdvancementSubProvider.createPlaceholder(PPTC.locate("pipi_totem").toString()))
@@ -123,8 +152,7 @@ public class PPTCAdvancementGenerator implements AdvancementGenerator {
 				.of(PPTCItems.PIPI_TOTEM.get())
 				.hasNbt(cursedTag())
 				.build())
-		).requirements(new String[][] {new String[] {"cursed_pipi"}})
-		.save(writer, PPTC.locate("cursed_pipi"), fileHelper);
+		).save(writer, PPTC.locate("cursed_pipi"), fileHelper);
 	}
 	
 	static String title(String name) {

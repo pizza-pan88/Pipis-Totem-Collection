@@ -1,0 +1,32 @@
+{
+  "parent": "pptc:villager_core",
+  "criteria": {
+    "repair_totem": {
+      "conditions": {
+        "recipe_id": "pptc:totem_of_undying"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.pptc.repair_totem.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "pptc:villager_core"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.pptc.repair_totem.title"
+    }
+  },
+  "requirements": [
+    [
+      "repair_totem"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

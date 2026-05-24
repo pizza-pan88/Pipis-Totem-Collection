@@ -17,6 +17,7 @@ import net.minecraft.world.level.Level;
 import pipi.mod.pptc.PPTC;
 import pipi.mod.pptc.util.PPTCItems;
 import pipi.mod.pptc.util.PPTCTagKeys;
+import pipi.mod.pptc.util.PPTCTooltips;
 
 public class PipisTotemItem extends Item implements ITotemItem {
 	
@@ -40,6 +41,13 @@ public class PipisTotemItem extends Item implements ITotemItem {
 		CompoundTag tag = stack.getTag();
 		return tag == null ? 0f : tag.getFloat(PPTCTagKeys.KEY_HEALTH);
 	}
+	public static String getTotemHealthString(ItemStack stack, long seed) {
+		float health = getTotemHealth(stack);
+		if(isInifinityHealth(health)) {
+			return PPTCTooltips.toRainbow("Infinity", seed);
+		}
+		return PPTC.FORMATTER.format(health);
+	}
 	
 	public static ItemStack getTotemStack(float customHealth) {
 		var stack = new ItemStack(PPTCItems.PIPI_TOTEM.get());
@@ -54,9 +62,8 @@ public class PipisTotemItem extends Item implements ITotemItem {
 	
 	@Override
 	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltips, TooltipFlag flag) {
-		float health = getTotemHealth(stack);
-		String value = isInifinityHealth(health) ? "Infinity" : PPTC.FORMATTER.format(health);
-		tooltips.add(Component.translatable("tooltip.pipis_totem.health", value));
+		String value = getTotemHealthString(stack, level == null ? 0 : level.dayTime());
+		tooltips.add(Component.translatable("tooltip.pipis_totem.health", value).withStyle(ChatFormatting.GRAY));
 		if(isTotemCursed(stack)) {
 			tooltips.add(
 				Component.translatable("tooltip.pipis_totem.cursed").withStyle(ChatFormatting.DARK_RED)
@@ -89,12 +96,11 @@ public class PipisTotemItem extends Item implements ITotemItem {
 	}
 
 	@Override
-	public void onTotemUse(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
+	public void onTotemUsed(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
 		float totemHealth = getTotemHealth(totem);
 		if(!isInifinityHealth(totemHealth))
 			totem.getOrCreateTag().putFloat(PPTCTagKeys.KEY_HEALTH, totemHealth - healAmount);
-		if(!isTotemCursed(totem))
-			willBeDead.invulnerableTime = 400;
+		willBeDead.invulnerableTime = isTotemCursed(totem) ? 0 : 100;
 	}
 	
 }

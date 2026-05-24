@@ -1,11 +1,13 @@
-// 1.20.1	2026-04-02T23:02:07.1521245	Recipes
-61f3a074d5e785d8d0d6fb7ac952d26f82b2bd4e data/pptc/advancements/recipes/misc/pipis_totem.json
+// 1.20.1	2026-05-24T20:19:34.8603666	Recipes
+61f3a074d5e785d8d0d6fb7ac952d26f82b2bd4e data/pptc/advancements/recipes/combat/pipis_totem.json
+26a71e2270588fbeb5cebb9bb48bdf733088844e data/pptc/advancements/recipes/combat/totem_of_return.json
+76231733e0703788adfe769e16ff1f7dbddbb4b4 data/pptc/advancements/recipes/combat/totem_of_undying.json
+046e2600048c9995c5250dc24bc1f7722dd31009 data/pptc/advancements/recipes/food/totem_of_chocolate.json
 1f2e4cd8b19f0031d0801e8bd486faa4538e98fb data/pptc/advancements/recipes/misc/totem_871.json
-046e2600048c9995c5250dc24bc1f7722dd31009 data/pptc/advancements/recipes/misc/totem_of_chocolate.json
-26a71e2270588fbeb5cebb9bb48bdf733088844e data/pptc/advancements/recipes/misc/totem_of_return.json
-76231733e0703788adfe769e16ff1f7dbddbb4b4 data/pptc/advancements/recipes/misc/totem_of_undying.json
-2a7aa781a4baed0850cad2dbba3cc2c905e615eb data/pptc/recipes/pipis_totem.json
+9f205a8b389c8ae7922d924c2aa0113accaeba92 data/pptc/advancements/recipes/misc/totem_storage.json
+d419967df2863a8a8d4d37492516f29920470c82 data/pptc/recipes/pipis_totem.json
 da36e0947f97b3ee7a0bc4de5c165ed26f480e68 data/pptc/recipes/totem_871.json
 d1e9a915f97b5dfc21cd256bf48f4d23265da310 data/pptc/recipes/totem_of_chocolate.json
-ac54fe7f50227db622c6e811550017548858a81e data/pptc/recipes/totem_of_return.json
-b1d9469d70d8f56434369c807a0f1633b9cd61af data/pptc/recipes/totem_of_undying.json
+0c8f303ede4d20b4e0f81d32d39ef8800c56463d data/pptc/recipes/totem_of_return.json
+068030bb8a25837b5ff6d203328dc7fd6850b598 data/pptc/recipes/totem_of_undying.json
+fe486287de3527a9888ca5f14aa7aef0f73ad9d6 data/pptc/recipes/totem_storage.json

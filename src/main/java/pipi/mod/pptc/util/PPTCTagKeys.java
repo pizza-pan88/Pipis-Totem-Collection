@@ -6,4 +6,8 @@ public class PPTCTagKeys {
 	
 	public static final String KEY_CURSED = "pptc:cursed";
 	
+	public static final String KEY_TOTEM_RECIPE = "totemRecipe";
+	
+	public static final String KEY_TOTEM_AMOUNT = "totemAmount";
+	
 }

@@ -22,10 +22,11 @@ public final class PPTCDataGen {
 				event.includeServer(),
 				factory(PPTCRecipeProvider::new)
 		);
+		/* 難しいのでイベントに変更
 		event.getGenerator().addProvider(
 				event.includeServer(),
 				factory(PPTCGLMProvider::new)
-		);
+		);*/
 		event.getGenerator().addProvider(
 				event.includeServer(),
 				factory(output -> new ForgeAdvancementProvider(
@@ -38,6 +39,7 @@ public final class PPTCDataGen {
 		);
 	}
 	
+	// コンパイルエラーを防ぐため
 	<T extends DataProvider> DataProvider.Factory<T>
 	factory(DataProvider.Factory<T> factory) {
 		return factory;

@@ -1,9 +1,11 @@
-// 1.20.1	2026-04-03T21:39:04.7984087	Advancements
-7be3fa2ea131a6ea5df16ac90d60195c600475c5 data/pptc/advancements/broken.json
-d257eecef013be00f2b7e18510b1fdd92632a6c4 data/pptc/advancements/chocolate.json
+// 1.20.1	2026-05-24T20:19:34.8660145	Advancements
+a60527c043161dee79ff49d62e5a0737a58145be data/pptc/advancements/broken.json
+de4f283009a6eb837cb0f97773fb5c91925d2b9d data/pptc/advancements/chocolate.json
 04934bb20a956f0ca113a27786192e093b8b74e3 data/pptc/advancements/cursed_pipi.json
-7d408a23236bab2d68d551ef6d029e9689f2c056 data/pptc/advancements/origin.json
-30fc2ea413a36b1c549c2935885d26b7f3dd43d2 data/pptc/advancements/pipi_totem.json
-15d8e171e336b45f6492046c2ea8cf593f7d3f6f data/pptc/advancements/tor.json
-48a1238ec0fcee21ae5f4ec7d08bd6cba5a77b56 data/pptc/advancements/ttm_871.json
+00be25fa9229065f41dfd4bb06524b2aa7c320d6 data/pptc/advancements/origin.json
+89ef285ff5e1f24c889f64322491f22f9e11c187 data/pptc/advancements/pipi_totem.json
+9803d9cb613f24485c80f27cd06e18542d295d1e data/pptc/advancements/repair_totem.json
+1687dcb8c8877c0173d40418421b6e60388c0674 data/pptc/advancements/root.json
+05081029faf59bcd9df6ed6041807966a6030af6 data/pptc/advancements/tor.json
+da41ec1a7b7198282324eb6ba989afed4754b619 data/pptc/advancements/ttm_871.json
 e671819e760265af3140f6627566c16643654574 data/pptc/advancements/villager_core.json

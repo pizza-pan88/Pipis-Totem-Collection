@@ -40,7 +40,7 @@ public class TORItem extends Item implements ITotemItem {
 	}
 
 	@Override
-	public void onTotemUse(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
+	public void onTotemUsed(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
 		if(willBeDead instanceof ServerPlayer player) {
 			BlockPos spawnPoint = player.getRespawnPosition();
 			ResourceKey<Level> dimentionKey = (spawnPoint == null) ?

@@ -21,14 +21,14 @@ public class PPTCRecipeProvider extends RecipeProvider {
 	@Override
 	protected void buildRecipes(Consumer<FinishedRecipe> writer) {
 		// totem of undying
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.TOTEM_OF_UNDYING)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, Items.TOTEM_OF_UNDYING)
 		.requires(PPTCItems.BROKEN_TOTEM.get())
 		.requires(PPTCItems.VILLAGER_CORE.get())
 		.unlockedBy("has_broken_totem", has(PPTCItems.BROKEN_TOTEM.get()))
 		.unlockedBy("has_villager_core", has(PPTCItems.VILLAGER_CORE.get()))
 		.save(writer, PPTC.locate("totem_of_undying").toString());
 		// totem of return
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PPTCItems.TOTEM_OF_RETURN.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, PPTCItems.TOTEM_OF_RETURN.get())
 		.requires(PPTCItems.BROKEN_TOTEM.get())
 		.requires(Items.ENDER_PEARL)
 		.unlockedBy("has_broken_totem", has(PPTCItems.BROKEN_TOTEM.get()))
@@ -40,13 +40,14 @@ public class PPTCRecipeProvider extends RecipeProvider {
 		.unlockedBy("has_broken_totem", has(PPTCItems.BROKEN_TOTEM.get()))
 		.save(writer);
 		// Totem of Chocolate
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, PPTCItems.TOTEM_OF_CHOCOLATE.get())
+		// ピクセル比: トーテム:カカオ = 0.223 : 0.777
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, PPTCItems.TOTEM_OF_CHOCOLATE.get())
 		.requires(PPTCItems.BROKEN_TOTEM.get())
 		.requires(Items.COCOA_BEANS, 8)
 		.unlockedBy("has_broken_totem", has(PPTCItems.BROKEN_TOTEM.get()))
 		.save(writer);
 		// Pipi's Totem
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PPTCItems.PIPI_TOTEM.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, PPTCItems.PIPI_TOTEM.get())
 		.pattern(" V ")
 		.pattern("SBC")
 		.pattern(" R ")
@@ -55,6 +56,16 @@ public class PPTCRecipeProvider extends RecipeProvider {
 		.define('B', PPTCItems.BROKEN_TOTEM.get())
 		.define('C', PPTCItems.TOTEM_OF_CHOCOLATE.get())
 		.define('R', PPTCItems.TOTEM_OF_RETURN.get())
+		.unlockedBy("has_broken_totem", has(PPTCItems.BROKEN_TOTEM.get()))
+		.save(writer);
+		
+		//Totem Storage
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PPTCItems.TOTEM_STORAGE.get())
+		.pattern(" C ")
+		.pattern("CBC")
+		.pattern(" C ")
+		.define('C', Items.CHEST)
+		.define('B', PPTCItems.BROKEN_TOTEM.get())
 		.unlockedBy("has_broken_totem", has(PPTCItems.BROKEN_TOTEM.get()))
 		.save(writer);
 	}

@@ -3,6 +3,7 @@ package pipi.mod.pptc.item;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.world.InteractionHand;
@@ -15,7 +16,7 @@ import net.minecraftforge.common.ForgeHooks;
 
 public interface ITotemItem {
 	public static final byte TOTEM_EVENT_ID = 35;
-	
+
 	public static final float VANILLA_HEAL = 1.0f;
 	public static final List<MobEffectInstance> VANILLA_EFFECTS = List.of(
 			new MobEffectInstance(MobEffects.REGENERATION, 900, 1),
@@ -25,8 +26,8 @@ public interface ITotemItem {
 	
 	/**
 	 * エンティティの死亡時にcall. タイミングは以下の２通り
-	 * <br> - {@link ForgeHooks#onLivingDeath(LivingEntity, DamageSource)}が呼び出される
-	 * <br> - {@link ForgeHooks#onLivingDamage(LivingEntity, DamageSource, float)}が呼び出され、HPが0以下の場合
+	 * <br> Event - {@link ForgeHooks#onLivingDeath(LivingEntity, DamageSource)}が呼び出される
+	 * <br> Mixin - {@link LivingEntity#checkTotemDeathProtection(DamageSource)}の戻り値がtrueでなかった場合
 	 * @param totem : トーテム
 	 * @param willBeDead : トーテムの効果対象
 	 * @param damage: エンティティが死亡する要因となったダメージ
@@ -62,7 +63,7 @@ public interface ITotemItem {
 	 * @param willBeDead : トーテムの効果対象
 	 * @param damage: エンティティが死亡する要因となったダメージ
 	 */
-	void onTotemUse(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage);
+	void onTotemUsed(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage);
 	
 	/**
 	 * トーテムを持っている手をgetします
@@ -78,4 +79,21 @@ public interface ITotemItem {
 		}
 		return null;
 	}
+	/**
+	 * 引数の条件で、発動するトーテムのgetter
+	 * @param entity : 対象
+	 * @param damage : ダメージ
+	 * @return 発動するトーテム。持ってないなら{@link ItemStack#EMPTY}
+	 */
+	@Nonnull
+	public static ItemStack getActivatedTotem(LivingEntity entity, DamageSource source) {
+		for(InteractionHand hand : InteractionHand.values()) {
+			ItemStack stack = entity.getItemInHand(hand);
+			if(stack.getItem() instanceof ITotemItem totem && totem.isTotemActivated(stack, entity, source)) {
+				return stack;
+			}
+		}
+		return ItemStack.EMPTY;
+	}
+	
 }

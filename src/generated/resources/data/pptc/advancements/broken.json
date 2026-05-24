@@ -11,7 +11,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.pptc.broken.description"
+      "translate": "advancements.pptc.break_totem.description"
     },
     "frame": "task",
     "hidden": false,
@@ -20,7 +20,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.pptc.broken.title"
+      "translate": "advancements.pptc.break_totem.title"
     }
   },
   "requirements": [

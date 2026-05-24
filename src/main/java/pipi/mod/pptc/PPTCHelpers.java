@@ -18,7 +18,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
@@ -38,40 +40,41 @@ public class PPTCHelpers {
 		if(entity == null || entity.level().isClientSide()) return false;
 		ServerLevel server = (ServerLevel)entity.level();
 		
-		var totemHand = ITotemItem.getTotemHand(entity);
-		if(totemHand == null) return false;
+		// これでは、メインハンドに発動しないトーテムを持っていた場合、オフハンドの確認をせずに終わって仕舞う
+		//var totemHand = ITotemItem.getTotemHand(entity);
+		var totemStack = ITotemItem.getActivatedTotem(entity, damage);
+		if(totemStack.isEmpty()) return false;
 		
-		ItemStack totemStack = entity.getItemInHand(totemHand);
 		ITotemItem totem = (ITotemItem)totemStack.getItem();
-		if(totem.isTotemActivated(totemStack, entity, damage)) {
-			float heal = totem.healAmount(totemStack, entity, damage);
-			float preHealth = entity.getHealth();
-			entity.setHealth(preHealth+heal);
+		float heal = totem.healAmount(totemStack, entity, damage);
+		float preHealth = entity.getHealth();
+		entity.setHealth(preHealth + heal);
 			
-			var effects = totem.getEffects(totemStack, entity, damage);
-			if(effects != null) {
-				entity.removeAllEffects();
-				effects.forEach(t -> entity.addEffect(new MobEffectInstance(t)));
-			}
-			
-			totem.onTotemUse(entity.getHealth() - preHealth, totemStack, entity, damage);
-			if(entity instanceof ServerPlayer player) {
-				player.awardStat(Stats.ITEM_USED.get(totemStack.getItem()));
-				CriteriaTriggers.USED_TOTEM.trigger(player, totemStack);
-			}
-			server.playSound(null, entity.blockPosition(), SoundEvents.TOTEM_USE, entity.getSoundSource());
-			var speed = entity.getDeltaMovement();
-			server.sendParticles(
-					ParticleTypes.TOTEM_OF_UNDYING,
-					entity.getX(), entity.getY(0.5f), entity.getZ(),
-					128,
-					speed.x, speed.y, speed.z,
-					1.0d
-			);
-			//PipisHelpers.debugSide(entity);
-			return true;
+		var effects = totem.getEffects(totemStack, entity, damage);
+		if(effects != null) {
+			entity.removeAllEffects();
+			effects.forEach(t -> entity.addEffect(new MobEffectInstance(t)));
 		}
-		return false;
+			
+		if(entity instanceof ServerPlayer player) {
+			player.awardStat(Stats.ITEM_USED.get(totemStack.getItem()));
+			CriteriaTriggers.USED_TOTEM.trigger(player, totemStack);
+		}
+		
+		float healedAmount = entity.getHealth() - preHealth;
+		// v1.1 トーテム使用の処理を少し後ろへ
+		totem.onTotemUsed(healedAmount, totemStack, entity, damage);
+		server.playSound(null, entity.blockPosition(), SoundEvents.TOTEM_USE, entity.getSoundSource());
+		var speed = entity.getDeltaMovement();
+		server.sendParticles(
+				ParticleTypes.TOTEM_OF_UNDYING,
+				entity.getX(), entity.getY(0.5f), entity.getZ(),
+				128,
+				speed.x, speed.y, speed.z,
+				1.0d
+		);
+		//PipisHelpers.debugSide(entity);
+		return true;
 	}
 	
 	// ﾅﾏｴﾅｶﾞ
@@ -91,6 +94,15 @@ public class PPTCHelpers {
 			}
 		}
 		return false;
+	}
+	
+	public static ItemEntity createDropItem(ItemStack item, LivingEntity entity) {
+		ItemEntity itemEntity = EntityType.ITEM.create(entity.level());
+		itemEntity.setItem(item);
+		itemEntity.setDefaultPickUpDelay();
+		itemEntity.setPos(entity.getX(), entity.getY(0.5), entity.getZ());
+		itemEntity.setDeltaMovement(entity.getDeltaMovement());
+		return itemEntity;
 	}
 	
 	public static void debugSide(LivingEntity e) {

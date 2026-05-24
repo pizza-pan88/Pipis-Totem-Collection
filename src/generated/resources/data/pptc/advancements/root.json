@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "on_tick": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/bedrock.png",
+    "description": {
+      "translate": "advancements.pptc.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pptc:pipis_totem"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.pptc.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "on_tick"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

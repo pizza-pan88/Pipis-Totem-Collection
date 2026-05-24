@@ -4,9 +4,13 @@ import java.util.function.Supplier;
 
 import com.mojang.serialization.Codec;
 
+import net.minecraft.advancements.critereon.DamageSourcePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
@@ -38,6 +42,10 @@ public class PPTCGLMProvider extends GlobalLootModifierProvider {
 					LootTableIdCondition.builder(
 						ResourceLocation.fromNamespaceAndPath("minecraft", "entities/villager")
 					).build(),
+					DamageSourceCondition.hasDamageSource(
+							DamageSourcePredicate.Builder.damageType()
+							.source(EntityPredicate.Builder.entity().of(EntityType.EVOKER))
+					).build()
 				},
 				new ItemStack(PPTCItems.VILLAGER_CORE.get())
 			)

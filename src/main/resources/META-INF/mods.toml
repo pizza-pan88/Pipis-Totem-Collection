@@ -5,7 +5,7 @@ license="All Rights Reserved"
 
 [[mods]]
     modId="pptc"
-    version="1.0+mc1.20.1"
+    version="1.1+mc1.20.1"
     displayName="Pipi's Totem Collection"
     #updateJSONURL="https://"
     #displayURL="https://"
@@ -13,8 +13,11 @@ license="All Rights Reserved"
     #credits=""
     authors="Pizza_pan88"
     description='''
-    My Totem Collections
+    Pipi's Totem Collections Mod
     '''
+
+[[mixins]]
+config="pptc.mixins.json"
 
 [[dependencies.pptc]]
     modId="forge"

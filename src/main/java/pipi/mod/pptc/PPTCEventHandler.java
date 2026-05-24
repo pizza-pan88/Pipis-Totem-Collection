@@ -2,19 +2,20 @@ package pipi.mod.pptc;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingUseTotemEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import pipi.mod.pptc.item.PipisTotemItem;
+import pipi.mod.pptc.item.VillagerCoreItem;
 import pipi.mod.pptc.util.PPTCItems;
 import pipi.mod.pptc.util.PPTCTagKeys;
 
@@ -24,7 +25,9 @@ public class PPTCEventHandler {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	static void onLivingDeath(LivingDeathEvent event) {
 		var entity = event.getEntity();
-		if(PPTCHelpers.useTotem(entity, event.getSource())) {
+		// キャンセルされているなら発動しない
+		var canceled = event.isCanceled();
+		if(!canceled && PPTCHelpers.useTotem(entity, event.getSource())) {
 			entity.animateHurt(0);
 			event.setCanceled(true);
 		}
@@ -32,10 +35,11 @@ public class PPTCEventHandler {
 	
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	static void onLivingDamaged(LivingDamageEvent event) {
-		var entity = event.getEntity();
-		if(PPTCHelpers.isDeadOrDying(entity)) {
-			PPTCHelpers.useTotem(entity, event.getSource());
-		}
+		// Mixin移行
+		//var entity = event.getEntity();
+		//if(PPTCHelpers.isDeadOrDying(entity)) {
+		//	PPTCHelpers.useTotem(entity, event.getSource());
+		//}
 		
 		// 以降Pipi's Totemの処理
 		var direct = event.getSource().getDirectEntity();
@@ -51,6 +55,20 @@ public class PPTCEventHandler {
 						return;
 					}
 				}
+			}
+		}
+
+	}
+	
+	@SubscribeEvent
+	static void onLivingDrops(LivingDropsEvent event) {
+		var entity = event.getEntity();
+		// 大人の村人のみ(子供は敵対されない)
+		if(entity instanceof Villager villager && !villager.isBaby()) {
+			var source = event.getSource();
+			if(VillagerCoreItem.isSoulReapingAttack(source)) {
+				ItemStack villagerCore = new ItemStack(PPTCItems.VILLAGER_CORE.get());
+				event.getDrops().add(PPTCHelpers.createDropItem(villagerCore, entity));
 			}
 		}
 	}
@@ -71,19 +89,15 @@ public class PPTCEventHandler {
 		}
 	}
 	
-	@SubscribeEvent
-	static void onUsedTotem(LivingUseTotemEvent event) {
-		LivingEntity entity = event.getEntity();
+	public static void addBrokenTotem(LivingEntity entity) {
 		ItemStack broken = new ItemStack(PPTCItems.BROKEN_TOTEM.get());
 		if(entity instanceof ServerPlayer player) {
-			player.addItem(broken);
+			if(!player.addItem(broken)) {
+				player.drop(broken, false);
+			}
 		} else {
 			Level level = entity.level();
-			ItemEntity itemEntity = EntityType.ITEM.create(level);
-			itemEntity.setItem(broken);
-			itemEntity.setDefaultPickUpDelay();
-			itemEntity.setPos(entity.getX(), entity.getY(0.5), entity.getZ());
-			itemEntity.setDeltaMovement(entity.getDeltaMovement());
+			ItemEntity itemEntity = PPTCHelpers.createDropItem(broken, entity);
 			level.addFreshEntity(itemEntity);
 		}
 	}

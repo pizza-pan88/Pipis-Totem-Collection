@@ -1,6 +1,7 @@
 {
+  "parent": "pptc:root",
   "criteria": {
-    "get_totem": {
+    "collect_totem": {
       "conditions": {
         "items": [
           {
@@ -15,23 +16,22 @@
   },
   "display": {
     "announce_to_chat": true,
-    "background": "minecraft:textures/block/bedrock.png",
     "description": {
-      "translate": "advancements.pptc.origin.description"
+      "translate": "advancements.pptc.collect_totem.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "minecraft:totem_of_undying"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.pptc.origin.title"
+      "translate": "advancements.pptc.collect_totem.title"
     }
   },
   "requirements": [
     [
-      "get_totem"
+      "collect_totem"
     ]
   ],
   "sends_telemetry_event": true

@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.pptc.tor.description"
+      "translate": "advancements.pptc.collect_tor.description"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.pptc.tor.title"
+      "translate": "advancements.pptc.collect_tor.title"
     }
   },
   "requirements": [
