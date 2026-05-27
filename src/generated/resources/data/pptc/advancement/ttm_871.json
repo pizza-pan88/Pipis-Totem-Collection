@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.pptc.ttm_871.description"
+      "translate": "advancements.pptc.collect_ttm_871.description"
     },
     "icon": {
       "count": 1,
       "id": "pptc:totem_871"
     },
     "title": {
-      "translate": "advancements.pptc.ttm_871.title"
+      "translate": "advancements.pptc.collect_ttm_871.title"
     }
   },
   "requirements": [

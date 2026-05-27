@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "pipi.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "pptc.mixins.refmap.json",
+  "mixins": [
+    "MixinLivingEntity",
+    "MixinPlayer",
+    "MixinServerPlayer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

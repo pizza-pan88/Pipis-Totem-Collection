@@ -10,14 +10,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.pptc.broken.description"
+      "translate": "advancements.pptc.break_totem.description"
     },
     "icon": {
       "count": 1,
       "id": "pptc:broken_totem"
     },
     "title": {
-      "translate": "advancements.pptc.broken.title"
+      "translate": "advancements.pptc.break_totem.title"
     }
   },
   "requirements": [

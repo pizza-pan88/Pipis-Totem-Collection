@@ -19,6 +19,7 @@ import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import pipi.mod.pptc.PPTC;
 import pipi.mod.pptc.util.PPTCDataComponents;
 import pipi.mod.pptc.util.PPTCItems;
+import pipi.mod.pptc.util.PPTCTooltips;
 
 public class PipisTotemItem extends Item implements ITotemItem {
 	
@@ -43,6 +44,13 @@ public class PipisTotemItem extends Item implements ITotemItem {
 	public static float getTotemHealth(ItemStack stack) {
 		return stack.getOrDefault(PPTCDataComponents.HEALTH, 0f);
 	}
+	public static String getTotemHealthString(ItemStack stack, long seed) {
+		float health = getTotemHealth(stack);
+		if(isInifinityHealth(health)) {
+			return PPTCTooltips.toRainbow("Infinity", seed);
+		}
+		return PPTC.FORMATTER.format(health);
+	}
 	
 	public static ItemStack getTotemStack(float customHealth) {
 		var stack = new ItemStack(PPTCItems.PIPI_TOTEM.get());
@@ -58,9 +66,9 @@ public class PipisTotemItem extends Item implements ITotemItem {
 	@Deprecated
 	public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay tooltipDisplay,
 			Consumer<Component> tooltipAdder, TooltipFlag flag) {
-		float health = getTotemHealth(stack);
-		String value = isInifinityHealth(health) ? "Infinity" : PPTC.FORMATTER.format(health);
-		tooltipAdder.accept(Component.translatable("tooltip.pipis_totem.health", value));
+		long seed = context.level() == null ? 0 : context.level().getGameTime();
+		String value = getTotemHealthString(stack, seed);
+		tooltipAdder.accept(Component.translatable("tooltip.pipis_totem.health", value).withStyle(ChatFormatting.GRAY));
 		if(isTotemCursed(stack)) {
 			tooltipAdder.accept(
 				Component.translatable("tooltip.pipis_totem.cursed").withStyle(ChatFormatting.DARK_RED)
@@ -89,12 +97,11 @@ public class PipisTotemItem extends Item implements ITotemItem {
 	}
 
 	@Override
-	public void onTotemUse(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
+	public void onTotemUsed(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
 		float totemHealth = getTotemHealth(totem);
 		if(!isInifinityHealth(totemHealth))
 			totem.set(PPTCDataComponents.HEALTH, totemHealth - healAmount);
-		if(!isTotemCursed(totem))
-			willBeDead.invulnerableTime = 400;
+		willBeDead.invulnerableTime = isTotemCursed(totem) ? 0 : 100;
 	}
 	
 }

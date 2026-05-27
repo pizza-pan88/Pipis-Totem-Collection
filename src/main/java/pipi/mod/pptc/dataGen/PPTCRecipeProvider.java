@@ -23,32 +23,37 @@ public class PPTCRecipeProvider extends RecipeProvider {
 	@Override
 	protected void buildRecipes() {
 		// totem of undying
-		ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, Items.TOTEM_OF_UNDYING)
+		ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.COMBAT, Items.TOTEM_OF_UNDYING)
 		.requires(PPTCItems.BROKEN_TOTEM)
 		.requires(PPTCItems.VILLAGER_CORE)
 		.unlockedBy("has_broken_totem", this.has(PPTCItems.BROKEN_TOTEM))
 		.unlockedBy("has_villager_core", this.has(PPTCItems.VILLAGER_CORE))
-		.save(this.output, PPTC.locate("totem_of_undying").toString());
+		.save(this.output, PPTC.locateStr("totem_of_undying"));
+		
 		// totem of return
-		ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, PPTCItems.TOTEM_OF_RETURN)
+		ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.COMBAT, PPTCItems.TOTEM_OF_RETURN)
 		.requires(PPTCItems.BROKEN_TOTEM)
 		.requires(Items.ENDER_PEARL)
 		.unlockedBy("has_broken_totem", this.has(PPTCItems.BROKEN_TOTEM))
 		.save(this.output);
+		
 		// Totem 871
 		ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, PPTCItems.TOTEM_871)
 		.requires(PPTCItems.BROKEN_TOTEM)
 		.requires(Items.CAKE)
 		.unlockedBy("has_broken_totem", this.has(PPTCItems.BROKEN_TOTEM))
 		.save(this.output);
+		
 		// Totem of Chocolate
-		ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.MISC, PPTCItems.TOTEM_OF_CHOCOLATE)
+		// ピクセル比: トーテム:カカオ = 0.223 : 0.777
+		ShapelessRecipeBuilder.shapeless(this.items, RecipeCategory.FOOD, PPTCItems.TOTEM_OF_CHOCOLATE)
 		.requires(PPTCItems.BROKEN_TOTEM)
 		.requires(Items.COCOA_BEANS, 8)
 		.unlockedBy("has_broken_totem", this.has(PPTCItems.BROKEN_TOTEM))
 		.save(this.output);
+		
 		// Pipi's Totem
-		ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, PipisTotemItem.getTotemStack(20))
+		ShapedRecipeBuilder.shaped(this.items, RecipeCategory.COMBAT, PipisTotemItem.getTotemStack(20))
 		.pattern(" V ")
 		.pattern("SBC")
 		.pattern(" R ")
@@ -57,6 +62,17 @@ public class PPTCRecipeProvider extends RecipeProvider {
 		.define('B', PPTCItems.BROKEN_TOTEM)
 		.define('C', PPTCItems.TOTEM_OF_CHOCOLATE)
 		.define('R', PPTCItems.TOTEM_OF_RETURN)
+		.unlockedBy("has_broken_totem", this.has(PPTCItems.BROKEN_TOTEM))
+		.save(this.output);
+		
+		
+		//Totem Storage
+		ShapedRecipeBuilder.shaped(this.items, RecipeCategory.MISC, PPTCItems.TOTEM_STORAGE)
+		.pattern(" C ")
+		.pattern("CBC")
+		.pattern(" C ")
+		.define('C', Items.CHEST)
+		.define('B', PPTCItems.BROKEN_TOTEM)
 		.unlockedBy("has_broken_totem", this.has(PPTCItems.BROKEN_TOTEM))
 		.save(this.output);
 	}

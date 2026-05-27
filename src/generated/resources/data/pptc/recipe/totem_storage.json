@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "pptc:broken_totem",
+    "C": "minecraft:chest"
+  },
+  "pattern": [
+    " C ",
+    "CBC",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "pptc:totem_storage"
+  }
+}

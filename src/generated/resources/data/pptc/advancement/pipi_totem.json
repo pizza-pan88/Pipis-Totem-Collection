@@ -16,7 +16,6 @@
     "description": {
       "translate": "advancements.pptc.pipi.description"
     },
-    "frame": "goal",
     "icon": {
       "count": 1,
       "id": "pptc:pipis_totem"

@@ -17,7 +17,8 @@ public final class PPTCDataGen {
 	@SubscribeEvent
 	public void onGatherData(GatherDataEvent.Client event) {
 		event.createProvider(PPTCRecipeProvider.Runner::new);
-		event.createProvider(PPTCGLMProvider::new);
+		//イベントに変更
+		//event.createProvider(PPTCGLMProvider::new);
 		event.createProvider((output, lookupProvider) -> new AdvancementProvider(
 				output, lookupProvider,
 				List.of(new PPTCAdvancementGenerator())

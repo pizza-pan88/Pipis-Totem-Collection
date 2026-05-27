@@ -43,6 +43,9 @@ description='''
 My Totem Collections
 '''
 
+[[mixins]]
+config="${mod_id}.mixins.json"
+
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.${mod_id}]] #optional
     # the modid of the dependency

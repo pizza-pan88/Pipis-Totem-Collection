@@ -26,4 +26,18 @@ public class PPTCDataComponents {
 					.persistent(Codec.BOOL)
 					.networkSynchronized(ByteBufCodecs.BOOL)
 			);
+	
+	@Deprecated
+	/** 今後使う予定。実装予定のパラメータはStringではない */
+	public static final Supplier<DataComponentType<String>> TOTEM_RECIPE =
+			DATA_COMPONENTS.registerComponentType("totem_recipe", builder -> builder
+					.persistent(Codec.STRING)
+					.networkSynchronized(ByteBufCodecs.STRING_UTF8)
+			);
+	
+	public static final Supplier<DataComponentType<Long>> TOTEM_AMOUNT =
+			DATA_COMPONENTS.registerComponentType("totem_amount", builder -> builder
+					.persistent(ExtraCodecs.NON_NEGATIVE_LONG)
+					.networkSynchronized(ByteBufCodecs.VAR_LONG)
+			);
 }

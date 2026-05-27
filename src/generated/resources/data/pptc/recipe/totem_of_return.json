@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
+  "category": "equipment",
   "ingredients": [
     "pptc:broken_totem",
     "minecraft:ender_pearl"

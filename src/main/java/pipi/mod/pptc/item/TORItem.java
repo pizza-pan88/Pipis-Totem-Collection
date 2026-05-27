@@ -2,11 +2,9 @@ package pipi.mod.pptc.item;
 
 import java.util.List;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,8 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.level.portal.TeleportTransition;
-import net.minecraft.world.level.storage.LevelData.RespawnData;
-import net.minecraft.world.phys.Vec3;
 
 public class TORItem extends Item implements ITotemItem {
 
@@ -44,20 +40,28 @@ public class TORItem extends Item implements ITotemItem {
 	}
 
 	@Override
-	public void onTotemUse(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
+	public void onTotemUsed(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
 		if(willBeDead instanceof ServerPlayer player) {
-			RespawnData respawnData = (player.getRespawnConfig() == null) ?
+			// もっといいのあった
+			/*RespawnData respawnData = (player.getRespawnConfig() == null) ?
 					player.level().getRespawnData() : player.getRespawnConfig().respawnData();
 			ServerLevel dimention = player.level().getServer().getLevel(respawnData.dimension());
 			BlockPos spawnPoint = respawnData.pos();
-			Vec3 goal = new Vec3(spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ());
+			player.findRespawnPositionAndUseSpawnBlock(!player.isCreative(), null);
+			Vec3 goal = Vec3.atCenterOf(spawnPoint);
 			TeleportTransition to = new TeleportTransition(
 				dimention, goal, player.getDeltaMovement(),
 				player.getYRot(), player.getXRot(),
 				TeleportTransition.DO_NOTHING
+			);*/
+			
+			boolean isCretive = player.isCreative();
+			// まさかのこれでよかった
+			TeleportTransition to = player.findRespawnPositionAndUseSpawnBlock(
+					!isCretive, TeleportTransition.DO_NOTHING
 			);
 			player.teleport(to);
-			if(player.isCreative()) return;
+			if(isCretive) return;
 		}
 		totem.shrink(1);
 	}

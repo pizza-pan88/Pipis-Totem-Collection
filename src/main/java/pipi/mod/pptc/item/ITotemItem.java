@@ -3,13 +3,17 @@ package pipi.mod.pptc.item;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DeathProtection;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.item.consume_effects.ClearAllStatusEffectsConsumeEffect;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.neoforged.neoforge.common.CommonHooks;
 
@@ -19,6 +23,13 @@ public interface ITotemItem {
 	public static final float VANILLA_HEAL = 1.0f;
 	public static final List<ConsumeEffect> VANILLA_EFFECTS =
 			DeathProtection.TOTEM_OF_UNDYING.deathEffects();
+	
+	public static List<ConsumeEffect> effectsWithClear(MobEffectInstance effect) {
+		return List.of(new ClearAllStatusEffectsConsumeEffect(), new ApplyStatusEffectsConsumeEffect(effect));
+	}
+	public static List<ConsumeEffect> effectsWithClear(List<MobEffectInstance> effects) {
+		return List.of(new ClearAllStatusEffectsConsumeEffect(), new ApplyStatusEffectsConsumeEffect(effects));
+	}
 	
 	/**
 	 * エンティティの死亡時({@link CommonHooks#onLivingDeath(LivingEntity, DamageSource)})にcall
@@ -57,7 +68,7 @@ public interface ITotemItem {
 	 * @param willBeDead : トーテムの効果対象
 	 * @param damage: エンティティが死亡する要因となったダメージ
 	 */
-	void onTotemUse(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage);
+	void onTotemUsed(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage);
 	
 	/**
 	 * トーテムを持っている手をgetします
@@ -72,5 +83,21 @@ public interface ITotemItem {
 			return InteractionHand.OFF_HAND;
 		}
 		return null;
+	}
+	/**
+	 * 引数の条件で、発動するトーテムのgetter
+	 * @param entity : 対象
+	 * @param damage : ダメージ
+	 * @return 発動するトーテム。持ってないなら{@link ItemStack#EMPTY}
+	 */
+	@Nonnull
+	public static ItemStack getActivatedTotem(LivingEntity entity, DamageSource source) {
+		for(InteractionHand hand : InteractionHand.values()) {
+			ItemStack stack = entity.getItemInHand(hand);
+			if(stack.getItem() instanceof ITotemItem totem && totem.isTotemActivated(stack, entity, source)) {
+				return stack;
+			}
+		}
+		return ItemStack.EMPTY;
 	}
 }

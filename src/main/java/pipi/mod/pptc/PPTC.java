@@ -15,14 +15,19 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import pipi.mod.pptc.dataGen.PPTCDataGen;
+import pipi.mod.pptc.gui.TotemStorageScreen;
 import pipi.mod.pptc.item.PipisTotemItem;
+import pipi.mod.pptc.item.TotemStorageItem;
+import pipi.mod.pptc.util.PPTCCapabilities;
 import pipi.mod.pptc.util.PPTCDataComponents;
 import pipi.mod.pptc.util.PPTCItems;
+import pipi.mod.pptc.util.PPTCMenuTypes;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(PPTC.MOD_ID)
@@ -50,6 +55,10 @@ public class PPTC {
 				output.accept(PPTCItems.TOTEM_OF_RETURN);
 				output.accept(PPTCItems.TOTEM_871);
 				output.accept(PPTCItems.TOTEM_OF_CHOCOLATE);
+				output.accept(PPTCItems.TOTEM_STORAGE.get());
+				output.accept(TotemStorageItem.filledStorage(Long.MAX_VALUE));
+				output.accept(PPTCItems.TOTEM_OF_BEDROCK.get());
+				output.accept(PPTCItems.DIRTEM.get());
 			}).build());
 		
     
@@ -57,8 +66,12 @@ public class PPTC {
 		PPTCItems.ITEMS.register(modEventBus);
 		PPTCDataComponents.DATA_COMPONENTS.register(modEventBus);
 		CREATIVE_MODE_TABS.register(modEventBus);
+		PPTCMenuTypes.MENU_TYPES.register(modEventBus);
 		PPTCDataGen.generate(modEventBus);
 
+		modEventBus.addListener(this::registerScreens);
+		modEventBus.addListener(PPTCCapabilities::registerCapabilities);
+		
 		NeoForge.EVENT_BUS.register(this);
 	}
 
@@ -66,9 +79,17 @@ public class PPTC {
 	public void onServerStarting(ServerStartingEvent event) {
 		LOGGER.info("HELLO from server starting");
 	}
+
+	public void registerScreens(RegisterMenuScreensEvent event) {
+		event.register(PPTCMenuTypes.TOTEM_STORAGE.get(), TotemStorageScreen::new);
+	}
 	
 	public static Identifier locate(String path) {
 		return Identifier.fromNamespaceAndPath(MOD_ID, path);
+	}
+	
+	public static String locateStr(String path) {
+		return MOD_ID + ":" + path;
 	}
 
 }

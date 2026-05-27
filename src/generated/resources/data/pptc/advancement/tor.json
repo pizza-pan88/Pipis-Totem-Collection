@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.pptc.tor.description"
+      "translate": "advancements.pptc.collect_tor.description"
     },
     "icon": {
       "count": 1,
       "id": "pptc:totem_of_return"
     },
     "title": {
-      "translate": "advancements.pptc.tor.title"
+      "translate": "advancements.pptc.collect_tor.title"
     }
   },
   "requirements": [

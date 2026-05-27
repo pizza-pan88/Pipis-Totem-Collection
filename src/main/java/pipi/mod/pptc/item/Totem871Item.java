@@ -62,7 +62,7 @@ public class Totem871Item extends Item implements ITotemItem {
 	}
 
 	@Override
-	public void onTotemUse(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
+	public void onTotemUsed(float healAmount, ItemStack totem, LivingEntity willBeDead, DamageSource damage) {
 		if(willBeDead instanceof Player player && player.isCreative())
 			return;
 		totem.shrink(1);

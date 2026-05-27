@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.pptc.chocolate.description"
+      "translate": "advancements.pptc.collect_chocotem.description"
     },
     "icon": {
       "count": 1,
       "id": "pptc:totem_of_chocolate"
     },
     "title": {
-      "translate": "advancements.pptc.chocolate.title"
+      "translate": "advancements.pptc.collect_chocotem.title"
     }
   },
   "requirements": [
