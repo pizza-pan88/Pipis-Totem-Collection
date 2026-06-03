@@ -1,13 +1,13 @@
 modLoader="javafml"
-loaderVersion="[47,)"
+loaderVersion="${loader_version_range}"
 
-license="All Rights Reserved"
+license="${mod_license}"
 
 [[mods]]
     modId="pptc"
-    version="1.1+mc1.20.1"
+    version="1.2+mc1.20.1"
     displayName="Pipi's Totem Collection"
-    #updateJSONURL="https://"
+    updateJSONURL="https://github.com/pizza-pan88/MCUpdateJSON/tree/main/pipisTotemCollection"
     #displayURL="https://"
     logoFile="logo.png"
     #credits=""
@@ -22,13 +22,13 @@ config="pptc.mixins.json"
 [[dependencies.pptc]]
     modId="forge"
     mandatory=true
-    versionRange="[47,)"
+    versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.pptc]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.1,1.21)"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"

@@ -67,7 +67,7 @@ public class PPTCItems {
 				super.onTotemUsed(healAmount, totem, willBeDead, damage);
 				willBeDead.removeAllEffects();
 				ForgeRegistries.MOB_EFFECTS.forEach(t -> {
-					if(t.isBeneficial()) willBeDead.addEffect(new MobEffectInstance(t, 6000, 255));
+					if(t.isBeneficial()) willBeDead.addEffect(new MobEffectInstance(t, 6000, 4));
 				});
 			}
 		});

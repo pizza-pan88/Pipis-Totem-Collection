@@ -15,9 +15,9 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import pipi.mod.pptc.PPTC;
+import pipi.mod.pptc.util.PPTCColors;
 import pipi.mod.pptc.util.PPTCItems;
 import pipi.mod.pptc.util.PPTCTagKeys;
-import pipi.mod.pptc.util.PPTCTooltips;
 
 public class PipisTotemItem extends Item implements ITotemItem {
 	
@@ -44,7 +44,7 @@ public class PipisTotemItem extends Item implements ITotemItem {
 	public static String getTotemHealthString(ItemStack stack, long seed) {
 		float health = getTotemHealth(stack);
 		if(isInifinityHealth(health)) {
-			return PPTCTooltips.toRainbow("Infinity", seed);
+			return PPTCColors.toRainbow("Infinity", seed);
 		}
 		return PPTC.FORMATTER.format(health);
 	}
@@ -62,7 +62,9 @@ public class PipisTotemItem extends Item implements ITotemItem {
 	
 	@Override
 	public void appendHoverText(ItemStack stack, Level level, List<Component> tooltips, TooltipFlag flag) {
-		String value = getTotemHealthString(stack, level == null ? 0 : level.dayTime());
+		// 2ticksごとに色を変化
+		long transition = 2L;
+		String value = getTotemHealthString(stack, level == null ? 0 : level.getGameTime() / transition);
 		tooltips.add(Component.translatable("tooltip.pipis_totem.health", value).withStyle(ChatFormatting.GRAY));
 		if(isTotemCursed(stack)) {
 			tooltips.add(
